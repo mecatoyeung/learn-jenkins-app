@@ -31,7 +31,8 @@ pipeline {
             steps {
                 sh '''
                     test -f build/index.html
-                    npm test
+                    npm test -- --reporters=default --reporters=jest-junit
+                    ls -la jest-results
                 '''
             }
         }
@@ -56,7 +57,7 @@ pipeline {
 
     post {
         always {
-            junit 'test-results/junit.xml'
+            junit 'jest-results/junit.xml'
         }
     }
 }
